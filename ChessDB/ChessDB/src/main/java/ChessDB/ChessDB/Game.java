@@ -46,4 +46,13 @@ public class Game {
     public void setDateCreated(Timestamp dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
 }
