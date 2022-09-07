@@ -17,7 +17,7 @@ public class GameController {
     private GameRepository gameRepository;
 
     @Autowired
-    private GameService greetingService;
+    private GameService gameService;
 
     @PostMapping("/addGame")
     public String add(@RequestBody Game game){
@@ -33,11 +33,25 @@ public class GameController {
     @DeleteMapping("/deleteGame/{id}")
     public ResponseEntity deleteGreeting(@PathVariable String id) {
 
-        boolean isDeleted = greetingService.deleteById(parseInt(id));
+        boolean isDeleted = gameService.deleteById(parseInt(id));
 
         if (!isDeleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find a greeting to delete with that id");
         }
         return ResponseEntity.status(HttpStatus.OK).body("Greeting deleted successfully");
+    }
+
+    @PutMapping("/games/{id}")
+    public ResponseEntity updateGame(@RequestBody Game game, @PathVariable int id) {
+
+        boolean isUpdated = gameService.updateById(id, game);
+
+        if(!isUpdated){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game not found");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("Game updated successfully");
+
+
     }
 }
